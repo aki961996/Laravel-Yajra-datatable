@@ -12,14 +12,13 @@
 
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-
-
 </head>
 
 <body>
     <!-- Modal -->
     @include('categories/addModal/categories_modal')
     {{-- model end --}}
+    
     <div class="row">
         <div class="col-md-6 offset-3" style="margin-top: 100px">
             <a href="javascript:void(0)" class="btn btn-dark mb-3" data-bs-toggle="modal"
@@ -43,10 +42,6 @@
 
 
     </div>
-
-
-
-
 
     {{-- scripts --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js">

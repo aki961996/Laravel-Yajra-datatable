@@ -6,25 +6,7 @@ $(document).ready(function () {
     });
 
 
-    //  show  data via jajira data table 
-    //    $('#category-table').DataTable({
-    //             processing: true,
-    //             serverSide: true,
-    //             ajax: {
-    //                 url: indexUrl,
-    //                 type: 'GET'
-    //             },
-    //             columns: [
-    //                 { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
-    //                 { data: 'id', name: 'id' },
-    //                 { data: 'name', name: 'name' },
-    //                 { data: 'type', name: 'type' },
-    //                 { data: 'created_at', name: 'created_at' },
-    //                 { data: 'updated_at', name: 'updated_at' },
-    //                 { data: 'action', name: 'action', orderable: false, searchable: false }
-    //             ]
-    //    });
-
+    //data via jajira data table 
     var table = $(".data-table").DataTable({
         processing: true,
         serverSide: true,
@@ -57,6 +39,7 @@ $(document).ready(function () {
     $('#saveBtn').html('Save Category');
     //name end changing jquery
 
+
     //add new category
     var formElement = $('#categoriesAdd')[0];
     $('#saveBtn').click(function () {
@@ -66,11 +49,11 @@ $(document).ready(function () {
         // $('#typeError').text('');
         $('.error-messages').html('');
 
-
         // // Debugging: Iterate over the formData entries
         // for (var pair of formData.entries()) {
         //     console.log(pair[0] + ': ' + pair[1]);
         // }
+
         $.ajax({
             url: storeUrl, // Ensure this route exists in your web.php
             method: 'POST',
@@ -78,7 +61,6 @@ $(document).ready(function () {
             contentType: false,
             data: formData,
             success: function (response) {
-
                 $('#categoriesAdd')[0].reset();
                 $('.categoriesModal').modal('hide');
                 $('.data-table').DataTable().ajax.reload(function () {
@@ -93,13 +75,8 @@ $(document).ready(function () {
                 }
                 // Reload the DataTable
 
-                //  table.draw();
-
-
             },
             error: function (xhr, status, error) {
-
-
                 if (xhr.responseJSON) {
                     var errors = xhr.responseJSON.errors;
 
@@ -116,5 +93,5 @@ $(document).ready(function () {
         });
     });
 
-    //end new category
+
 });

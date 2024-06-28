@@ -31,7 +31,6 @@ class CategoriesController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-      
     }
     public function create()
     {
@@ -42,12 +41,10 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
 
-
         $request->validate([
             'name' => 'required|unique:categories|min:2|max:30',
             'type' => 'required',
         ]);
-
 
         Category::create([
             'name' => $request->name,
@@ -59,7 +56,5 @@ class CategoriesController extends Controller
             'message' => 'Category created successfully!',
 
         ], 201);
-
-        //  return redirect()->route('categories.create')->with('success', 'Category created successfully.');
     }
 }
