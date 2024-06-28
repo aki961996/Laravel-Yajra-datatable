@@ -32,14 +32,27 @@ class CategoriesController extends Controller
                 ->make(true);
         }
     }
-    public function create()
+    public function create(Request $request)
     {
+
+        // $method = $request->method();
+        // if ($request->isMethod('post')) {
+
+        // }
+
+        //The path method returns the request's path information. So, if the incoming request is targeted at http://example.com/foo/bar, the path method will return foo/bar:
+        //$uri = $request->path();
+        // $url = $request->url();
+        // $urlWithQueryString = $request->fullUrl();
 
         return view('categories.create');
     }
 
     public function store(Request $request)
     {
+
+
+
 
         $request->validate([
             'name' => 'required|unique:categories|min:2|max:30',

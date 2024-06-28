@@ -1,10 +1,10 @@
 $(document).ready(function () {
+
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
         },
     });
-
 
     //data via jajira data table 
     var table = $(".data-table").DataTable({
@@ -25,14 +25,8 @@ $(document).ready(function () {
                 searchable: false,
             },
         ],
-
-
-
     });
     //end  data via jajira data table 
-
-
-
 
     //name changing jquery
     $('#modal-title').html('Create Category');
@@ -48,12 +42,10 @@ $(document).ready(function () {
         // $('#nameError').text('');
         // $('#typeError').text('');
         $('.error-messages').html('');
-
         // // Debugging: Iterate over the formData entries
         // for (var pair of formData.entries()) {
         //     console.log(pair[0] + ': ' + pair[1]);
         // }
-
         $.ajax({
             url: storeUrl, // Ensure this route exists in your web.php
             method: 'POST',
@@ -74,7 +66,6 @@ $(document).ready(function () {
                     swal("success", response.message, "success");
                 }
                 // Reload the DataTable
-
             },
             error: function (xhr, status, error) {
                 if (xhr.responseJSON) {
