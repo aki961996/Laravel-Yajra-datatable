@@ -11,15 +11,18 @@
                 <div class="modal-body">
                     {{-- This side will come form group --}}
 
+                    <input type="hidden" id="categoryId" name="id" />
+
                     <div class="form-group mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" name="name" class="form-control" />
+                        <input type="text" name="name" id="categoryName" class="form-control" />
                         <span id="nameError" class="text-danger error-messages"></span>
                     </div>
+                   
 
                     <div class="form-group mb-1">
                         <label for="" class="form-label">Type</label>
-                        <select name="type" class="form-control">
+                        <select name="type" id="categoryType" class="form-control">
                             <option disabled selected>Choose option</option>
                             <option value="electronic">Electronic</option>
 

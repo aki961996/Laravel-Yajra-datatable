@@ -18,14 +18,16 @@
     <!-- Modal -->
     @include('categories/addModal/categories_modal')
     {{-- model end --}}
-    
+
+
+
     <div class="row">
         <div class="col-md-6 offset-3" style="margin-top: 100px">
             <a href="javascript:void(0)" class="btn btn-dark mb-3" data-bs-toggle="modal"
                 data-bs-target="#categoriesModalAdd">Add
                 Categories</a>
 
-            <table class="table table-bordered data-table" >
+            <table class="table table-bordered data-table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -56,6 +58,10 @@
     <script>
         var indexUrl = '{{ route("categories.index") }}';
     </script>
+
+    {{-- <script>
+        var editUrl = '{{ route("categories.edit") }}';
+    </script> --}}
 
 
     <script src="{{asset('js/categories/index.js')}}"></script>

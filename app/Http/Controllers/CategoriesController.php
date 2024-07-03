@@ -16,15 +16,19 @@ class CategoriesController extends Controller
         // if ($request->ajax()) {
         //     return DataTables::of($category)->make(true);
         // }
+
         if ($request->ajax()) {
-            $data = Category::latest()->get();
+            //we add all that processing time and mb will high so we can use select
+            //$data = Category::latest()->get();
+            $data = Category::select('id', 'name', 'type');
+
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
 
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Edit</a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editCategory">Edit</a>';
 
-                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct">Delete</a>';
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteCategory">Delete</a>';
 
                     return $btn;
                 })
@@ -51,9 +55,6 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
 
-
-
-
         $request->validate([
             'name' => 'required|unique:categories|min:2|max:30',
             'type' => 'required',
@@ -69,5 +70,14 @@ class CategoriesController extends Controller
             'message' => 'Category created successfully!',
 
         ], 201);
+    }
+
+    public function edit($id, Request $request)
+    {
+
+
+        $category_id = $id;
+        $category = Category::find($category_id);
+        return $category;
     }
 }

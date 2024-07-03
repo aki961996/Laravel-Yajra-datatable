@@ -15,7 +15,7 @@ $(document).ready(function () {
             type: 'GET'
         },
         columns: [
-            { data: "DT_RowIndex", name: "DT_RowIndex" },
+            { data: "id", name: "id" },
             { data: "name", name: "name" },
             { data: "type", name: "type" },
             {
@@ -26,7 +26,7 @@ $(document).ready(function () {
             },
         ],
     });
-    //end  data via jajira data table 
+    //end  data via yajira data table 
 
     //name changing jquery
     $('#modal-title').html('Create Category');
@@ -83,6 +83,56 @@ $(document).ready(function () {
             }
         });
     });
+
+
+
+    //edit button code 
+    // Event delegation
+    $(document).on('click', '.editCategory', function () {
+
+
+        var id = $(this).data('id');
+
+        // AJAX request to fetch category details
+        $.ajax({
+            url: '/categories/' + id + '/edit',
+            type: 'GET',
+            success: function (data) {
+
+                var response = {
+                    id: data.id, // Replace with actual id value
+                    name: data.name, // Replace with actual name value
+                    type: data.type    // Replace with actual type value
+                };
+
+                // Populate the form fields with the fetched data
+                $('.categoriesModal').modal('show');
+                $('#modal-title').html('Edit Category');
+                $('#saveBtn').html('Update Category');
+                $('#categoryId').val(response.id);
+                $('#categoryName').val(response.name);
+
+
+                // Append the new option to the select box
+                // var newOption = $('<option selected ></option>').val(response.id).text(response.type);
+                // $('#categoryType').append(newOption);
+
+                // // Set the selected value of the select box
+                // $('#categoryType').val(response.id);
+
+                $('#categoryType').empty().append('<option selected value= "' + response.id + '"> ' + response.type + '</option> ').selectmenu('refresh');
+
+
+
+
+
+            },
+            error: function (xhr, status, error) {
+
+            }
+        });
+    });
+
 
 
 });
