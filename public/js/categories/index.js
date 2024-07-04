@@ -55,16 +55,18 @@ $(document).ready(function () {
             success: function (response) {
                 $('#categoriesAdd')[0].reset();
                 $('.categoriesModal').modal('hide');
+                if (response) {
+                    swal("success", response.message, "success");
+                }
                 $('.data-table').DataTable().ajax.reload(function () {
                     // Set a timeout to reload the entire page after a delay (e.g., 2 seconds)
                     setTimeout(function () {
                         location.reload();
                     }, 2000); // 2000 milliseconds = 2 seconds
                 });
-
-                if (response) {
-                    swal("success", response.message, "success");
-                }
+                // if (response) {
+                //     swal("success", response.message, "success");
+                // }
                 // Reload the DataTable
             },
             error: function (xhr, status, error) {
@@ -84,47 +86,28 @@ $(document).ready(function () {
         });
     });
 
-
-
     //edit button code 
     // Event delegation
     $(document).on('click', '.editCategory', function () {
-
-
         var id = $(this).data('id');
-
         // AJAX request to fetch category details
         $.ajax({
             url: '/categories/' + id + '/edit',
             type: 'GET',
             success: function (data) {
-
                 var response = {
-                    id: data.id, // Replace with actual id value
-                    name: data.name, // Replace with actual name value
-                    type: data.type    // Replace with actual type value
+                    id: data.id,
+                    name: data.name,
+                    type: data.type
                 };
-
                 // Populate the form fields with the fetched data
                 $('.categoriesModal').modal('show');
                 $('#modal-title').html('Edit Category');
                 $('#saveBtn').html('Update Category');
-                $('#categoryId').val(response.id);
+                $('#category_id').val(response.id);
                 $('#categoryName').val(response.name);
-
-
-                // Append the new option to the select box
-                // var newOption = $('<option selected ></option>').val(response.id).text(response.type);
-                // $('#categoryType').append(newOption);
-
-                // // Set the selected value of the select box
-                // $('#categoryType').val(response.id);
-
-                $('#categoryType').empty().append('<option selected value= "' + response.id + '"> ' + response.type + '</option> ').selectmenu('refresh');
-
-
-
-
+                var firstLetterCapitalName = capitalizeFirstLetter(response.type);
+                $('#categoryType').empty().append('<option selected value= "' + response.type + '"> ' + firstLetterCapitalName + '</option> ').selectmenu('refresh');
 
             },
             error: function (xhr, status, error) {
@@ -133,6 +116,36 @@ $(document).ready(function () {
         });
     });
 
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
 
+    }
+
+
+
+    $(document).on('click', '.deleteCategory', function () {
+        var id = $(this).data('id');
+        $.ajax({
+            url: '/categories/' + id + '/delete',
+            type: 'POST',
+            success: function (data) {
+
+                if (data) {
+                    swal("success", data.message, "success");
+                }
+                $('.data-table').DataTable().ajax.reload(function () {
+                    // Set a timeout to reload the entire page after a delay (e.g., 2 seconds)
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000); // 2000 milliseconds = 2 seconds
+                });
+
+            },
+            error: function (xhr, status, error) {
+
+            }
+        });
+
+    });
 
 });

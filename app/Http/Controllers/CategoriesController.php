@@ -41,7 +41,6 @@ class CategoriesController extends Controller
 
         // $method = $request->method();
         // if ($request->isMethod('post')) {
-
         // }
 
         //The path method returns the request's path information. So, if the incoming request is targeted at http://example.com/foo/bar, the path method will return foo/bar:
@@ -55,29 +54,59 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
-            'name' => 'required|unique:categories|min:2|max:30',
-            'type' => 'required',
-        ]);
+        if ($request->category_id) {
+            $request->validate([
+                'name' => 'required|unique:categories,name,' . $request->category_id . '|min:2|max:30',
+                'type' => 'required',
+            ]);
 
-        Category::create([
-            'name' => $request->name,
-            'type' => $request->type
-        ]);
+            Category::where('id', $request->category_id)->update([
+                'name' => $request->name,
+                'type' => $request->type
+            ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Category created successfully!',
+            return response()->json([
+                'success' => true,
+                'message' => 'Category updated successfully!',
 
-        ], 201);
+            ], 200);
+        } else {
+            $request->validate([
+                'name' => 'required|unique:categories|min:2|max:30',
+                'type' => 'required',
+            ]);
+
+            Category::create([
+                'name' => $request->name,
+                'type' => $request->type
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Category created successfully!',
+
+            ], 201);
+        }
     }
 
     public function edit($id, Request $request)
     {
-
-
         $category_id = $id;
         $category = Category::find($category_id);
         return $category;
+    }
+
+    public function delete($id, Request $request)
+    {
+
+        $category_id = $id;
+        Category::where('id', $category_id)->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Category deleted successfully!',
+
+
+        ], 201);
     }
 }

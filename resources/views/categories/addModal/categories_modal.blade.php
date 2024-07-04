@@ -11,14 +11,14 @@
                 <div class="modal-body">
                     {{-- This side will come form group --}}
 
-                    <input type="hidden" id="categoryId" name="id" />
+                    <input type="hidden" id="category_id" name="category_id" />
 
                     <div class="form-group mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" name="name" id="categoryName" class="form-control" />
                         <span id="nameError" class="text-danger error-messages"></span>
                     </div>
-                   
+
 
                     <div class="form-group mb-1">
                         <label for="" class="form-label">Type</label>

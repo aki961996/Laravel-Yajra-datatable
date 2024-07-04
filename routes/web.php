@@ -24,4 +24,6 @@ Route::prefix('categories')->group(function () {
     Route::post('/create', [CategoriesController::class, 'store'])->name('categories.store');
 
     Route::get('/{id}/edit', [CategoriesController::class, 'edit'])->name('categories.edit');
+
+    Route::post('/{id}/delete', [CategoriesController::class, 'delete'])->name('categories.delete');
 });
