@@ -6,6 +6,8 @@ $(document).ready(function () {
         },
     });
 
+
+
     //data via jajira data table 
     var table = $(".data-table").DataTable({
         processing: true,
@@ -54,19 +56,13 @@ $(document).ready(function () {
             data: formData,
             success: function (response) {
                 $('#categoriesAdd')[0].reset();
+
                 $('.categoriesModal').modal('hide');
                 if (response) {
                     swal("success", response.message, "success");
                 }
-                $('.data-table').DataTable().ajax.reload(function () {
-                    // Set a timeout to reload the entire page after a delay (e.g., 2 seconds)
-                    setTimeout(function () {
-                        location.reload();
-                    }, 2000); // 2000 milliseconds = 2 seconds
-                });
-                // if (response) {
-                //     swal("success", response.message, "success");
-                // }
+                table.draw();
+
                 // Reload the DataTable
             },
             error: function (xhr, status, error) {
@@ -107,7 +103,8 @@ $(document).ready(function () {
                 $('#category_id').val(response.id);
                 $('#categoryName').val(response.name);
                 var firstLetterCapitalName = capitalizeFirstLetter(response.type);
-                $('#categoryType').empty().append('<option selected value= "' + response.type + '"> ' + firstLetterCapitalName + '</option> ').selectmenu('refresh');
+                $('#categoryType').empty().append('<option selected value= "' + response.type + '"> ' + firstLetterCapitalName + '</option> ');
+
 
             },
             error: function (xhr, status, error) {
@@ -122,7 +119,7 @@ $(document).ready(function () {
     }
 
 
-
+    //delete funct
     $(document).on('click', '.deleteCategory', function () {
         var id = $(this).data('id');
         $.ajax({
@@ -133,12 +130,7 @@ $(document).ready(function () {
                 if (data) {
                     swal("success", data.message, "success");
                 }
-                $('.data-table').DataTable().ajax.reload(function () {
-                    // Set a timeout to reload the entire page after a delay (e.g., 2 seconds)
-                    setTimeout(function () {
-                        location.reload();
-                    }, 2000); // 2000 milliseconds = 2 seconds
-                });
+                table.draw();
 
             },
             error: function (xhr, status, error) {
@@ -147,5 +139,64 @@ $(document).ready(function () {
         });
 
     });
+
+    $("#closeBtn").click(function () {
+        table.draw();
+    });
+
+
+    //view functinality
+    $(document).on('click', '.viewCategory', function () {
+        $('.categoriesViewModal').modal('show');
+        $('#viewTitle').html('View Category');
+        var id = $(this).data('id');
+        $.ajax({
+            url: '/categories/' + id + '/view',
+            type: 'GET',
+            success: function (data) {
+
+                var response = {
+                    id: data.id,
+                    name: data.name,
+                    type: data.type
+                };
+                // Populate the form fields with the fetched data
+
+                $('#viewCategoryId').text(response.id);  //view category id
+                $('#viewCategoryName').text(response.name);
+                $('#viewCategoryType').text(response.name);
+                var firstLetterCapitalName = capitalizeFirstLetter(response.type);
+                $('#viewCategoryType').text(firstLetterCapitalName);
+
+            },
+            error: function (xhr, status, error) {
+
+            }
+        });
+    });
+
+
+    $(document).on('click', '#nextBtn', function () {
+        $.ajax({
+            url: '/categories/next_page',
+            type: 'GET',
+            success: function (data) {
+                $('#viewTitle').html('OnlyTrashed Data');
+                if (data.success) {
+                    // Assuming #rowContainer is the ID of the element where you want to append the HTML
+                    $("#rowContainer").append(data.html);
+                    $('#table_hide').hide();
+                    $('#nextBtn').hide();
+
+                } else {
+                    console.error('Failed to fetch data');
+                }
+            },
+            error: function (xhr, status, error) {
+
+            }
+        });
+    })
+
 
 });

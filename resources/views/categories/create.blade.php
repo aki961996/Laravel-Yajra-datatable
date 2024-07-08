@@ -12,6 +12,10 @@
 
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+    {{--
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> --}}
 </head>
 
 <body>
@@ -19,6 +23,9 @@
     @include('categories/addModal/categories_modal')
     {{-- model end --}}
 
+    <!-- Modal -->
+    @include('categories/viewModal/viewModal')
+    {{-- model end --}}
 
 
     <div class="row">

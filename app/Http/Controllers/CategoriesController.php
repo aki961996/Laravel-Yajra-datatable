@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Yajra\DataTables\Facades\DataTables;
 
 class CategoriesController extends Controller
@@ -29,6 +30,8 @@ class CategoriesController extends Controller
                     $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editCategory">Edit</a>';
 
                     $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteCategory">Delete</a>';
+
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-info btn-sm viewCategory">view</a>';
 
                     return $btn;
                 })
@@ -98,13 +101,32 @@ class CategoriesController extends Controller
 
     public function delete($id, Request $request)
     {
-
         $category_id = $id;
         Category::where('id', $category_id)->delete();
-
         return response()->json([
             'success' => true,
             'message' => 'Category deleted successfully!',
+
+
+        ], 201);
+    }
+
+    public function view($id, Request $request)
+    {
+        $category_id = $id;
+        $category = Category::find($category_id);
+        return $category;
+    }
+
+    public function next_page(Request $request)
+    {
+        $data['deleted_data'] = Category::onlyTrashed()->get();
+
+        $html = view('categories.deleted_data', $data)->render();
+        return response()->json([
+            'success' => true,
+            'html' => $html
+
 
 
         ], 201);
