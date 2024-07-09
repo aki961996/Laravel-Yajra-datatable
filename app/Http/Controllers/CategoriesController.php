@@ -12,18 +12,15 @@ class CategoriesController extends Controller
 
     public function index(Request $request)
     {
-
         // $category = Category::all();
-
         // if ($request->ajax()) {
         //     return DataTables::of($category)->make(true);
         // }
-
         if ($request->ajax()) {
             //we add all that processing time and mb will high so we can use select
             //$data = Category::latest()->get();
-            $data = Category::select('id', 'name', 'type');
-
+            // $data = Category::select('id', 'name', 'type');
+            $data = Category::select('id', 'name', 'type')->orderBy('created_at', 'desc')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -94,12 +91,18 @@ class CategoriesController extends Controller
     {
         $category_id = $id;
         $category = Category::find($category_id);
+        if (!$category) {
+            abort(404);
+        }
         return $category;
     }
 
     public function delete($id, Request $request)
     {
         $category_id = $id;
+        if (!$category_id) {
+            abort(404);
+        }
         Category::where('id', $category_id)->delete();
         return response()->json([
             'success' => true,
@@ -113,12 +116,16 @@ class CategoriesController extends Controller
     {
         $category_id = $id;
         $category = Category::find($category_id);
+
+        if (!$category) {
+            abort(404);
+        }
         return $category;
     }
 
     public function next_page(Request $request)
     {
-        $data['deleted_data'] = Category::onlyTrashed()->get();
+        $data['deleted_data'] = Category::onlyTrashed()->latest()->get();
 
         $html = view('categories.deleted_data', $data)->render();
         return response()->json([

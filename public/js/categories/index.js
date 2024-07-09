@@ -23,9 +23,9 @@ $(document).ready(function () {
             { data: "name", name: "name" },
             { data: "type", name: "type" },
             {
-                data: "action",
-                name: "action",
-                orderable: false,
+                data: 'action',
+                name: 'action',
+                orderable: true,
                 searchable: false,
             },
         ],
@@ -42,11 +42,12 @@ $(document).ready(function () {
     var formElement = $('#categoriesAdd')[0];
     $('#saveBtn').click(function () {
 
+        $('#saveBtn').attr('disabled', true);
         var formData = new FormData(formElement);
         // Clear previous error messages
         // $('#nameError').text('');
         // $('#typeError').text('');
-        $('.error-messages').html('');
+        $('.error-messages').text('');
         // // Debugging: Iterate over the formData entries
         // for (var pair of formData.entries()) {
         //     console.log(pair[0] + ': ' + pair[1]);
@@ -210,10 +211,11 @@ $(document).ready(function () {
 
 
 
-    //additinal 
+    //additinal n
     $(document).on('click', '#addCategorie', function () {
         $('#modal-title').html('Create Category');
         $('#saveBtn').html('Save Category');
+        $('.error-messages').text('');
     });
 
     function capitalizeFirstLetter(string) {
@@ -221,9 +223,60 @@ $(document).ready(function () {
 
     }
 
-    $("#closeBtn").click(function () {
-        table.draw();
+
+
+    $(document).on('click', '#closeBtn', function () {
+
+        $('#categoryName').val('');
+        $('#categoryType').val('');
+        $('#category_id').val('');
+        $('.categoriesModal').modal('hide');
+
     });
+
+    $(document).on('click', '.btn-close', function () {
+        $('#categoryName').val('');
+        $('#categoryType').val('');
+        $('#category_id').val('');
+        $('.categoriesModal').modal('hide');
+    });
+
+
+
+    $(document).on('click', '.closeBtn_view', function () {
+    });
+
+
+    // Function to check input values and enable/disable the button
+    function checkInputValues() {
+        let allInputsFilled = false;
+
+        $('input').each(function () {
+            if ($(this).val() !== '') {
+                allInputsFilled = true;
+                return false; // break out of the loop
+            }
+        });
+
+        if (allInputsFilled) {
+            $('#saveBtn').attr('disabled', true);
+            $('#saveBtn').attr('disabled', false);
+        } else {
+            $('#saveBtn').attr('disabled', true);
+            $('#saveBtn').attr('disabled', false);
+        }
+    }
+
+    // Check input values on page load
+    checkInputValues();
+
+    // Check input values on input change
+    $('input').on('input', function () {
+        checkInputValues();
+    });
+    // Function to check input values and enable/disable the button
+
+
 
 
 });
