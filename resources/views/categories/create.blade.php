@@ -31,7 +31,7 @@
     <div class="row">
         <div class="col-md-6 offset-3" style="margin-top: 100px">
             <a href="javascript:void(0)" class="btn btn-dark mb-3" data-bs-toggle="modal"
-                data-bs-target="#categoriesModalAdd">Add
+                data-bs-target="#categoriesModalAdd" id="addCategorie">Add
                 Categories</a>
 
             <table class="table table-bordered data-table">

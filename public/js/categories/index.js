@@ -39,6 +39,7 @@ $(document).ready(function () {
     //add new category
     var formElement = $('#categoriesAdd')[0];
     $('#saveBtn').click(function () {
+
         var formData = new FormData(formElement);
         // Clear previous error messages
         // $('#nameError').text('');
@@ -55,14 +56,15 @@ $(document).ready(function () {
             contentType: false,
             data: formData,
             success: function (response) {
-                $('#categoriesAdd')[0].reset();
-
+                // $('#categoriesAdd')[0].reset();
+                $('#categoryName').val('');
+                $('#categoryType').val('');
+                $('#category_id').val('');
                 $('.categoriesModal').modal('hide');
                 if (response) {
                     swal("success", response.message, "success");
                 }
                 table.draw();
-
                 // Reload the DataTable
             },
             error: function (xhr, status, error) {
@@ -85,12 +87,15 @@ $(document).ready(function () {
     //edit button code 
     // Event delegation
     $(document).on('click', '.editCategory', function () {
+
         var id = $(this).data('id');
         // AJAX request to fetch category details
         $.ajax({
             url: '/categories/' + id + '/edit',
             type: 'GET',
             success: function (data) {
+
+                // Populate the form fields with the fetched data
                 var response = {
                     id: data.id,
                     name: data.name,
@@ -99,6 +104,7 @@ $(document).ready(function () {
                 // Populate the form fields with the fetched data
                 $('.categoriesModal').modal('show');
                 $('#modal-title').html('Edit Category');
+                //values appending vai jquery  edit modal
                 $('#saveBtn').html('Update Category');
                 $('#category_id').val(response.id);
                 $('#categoryName').val(response.name);
@@ -111,6 +117,11 @@ $(document).ready(function () {
 
             }
         });
+    });
+
+    $(document).on('click', '#addCategorie', function () {
+        $('#modal-title').html('Create Category');
+        $('#saveBtn').html('Save Category');
     });
 
     function capitalizeFirstLetter(string) {
@@ -181,7 +192,7 @@ $(document).ready(function () {
             url: '/categories/next_page',
             type: 'GET',
             success: function (data) {
-                $('#viewTitle').html('OnlyTrashed Data');
+                $('#viewTitle').html('OnlyTrashed Data View');
                 if (data.success) {
                     // Assuming #rowContainer is the ID of the element where you want to append the HTML
                     $("#rowContainer").append(data.html);

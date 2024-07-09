@@ -41,23 +41,20 @@ class CategoriesController extends Controller
     }
     public function create(Request $request)
     {
-
         // $method = $request->method();
         // if ($request->isMethod('post')) {
         // }
-
         //The path method returns the request's path information. So, if the incoming request is targeted at http://example.com/foo/bar, the path method will return foo/bar:
         //$uri = $request->path();
         // $url = $request->url();
         // $urlWithQueryString = $request->fullUrl();
-
         return view('categories.create');
     }
 
     public function store(Request $request)
     {
 
-        if ($request->category_id) {
+        if ($request->category_id != null) {
             $request->validate([
                 'name' => 'required|unique:categories,name,' . $request->category_id . '|min:2|max:30',
                 'type' => 'required',
@@ -86,7 +83,7 @@ class CategoriesController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Category created successfully!',
+                'message' => 'Category inserted successfully!',
 
             ], 201);
         }
