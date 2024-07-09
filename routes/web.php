@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\LearningController;
 use Illuminate\Support\Facades\Route;
 
 /*
