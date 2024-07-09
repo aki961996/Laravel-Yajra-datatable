@@ -59,7 +59,9 @@ $(document).ready(function () {
             contentType: false,
             data: formData,
             success: function (response) {
+                table.draw();
                 // $('#categoriesAdd')[0].reset();
+                $('#saveBtn').attr('disabled', false);
                 $('#categoryName').val('');
                 $('#categoryType').val('');
                 $('#category_id').val('');
@@ -67,10 +69,11 @@ $(document).ready(function () {
                 if (response) {
                     swal("success", response.message, "success");
                 }
-                table.draw();
+
                 // Reload the DataTable
             },
             error: function (xhr, status, error) {
+                $('#saveBtn').attr('disabled', false);
                 if (xhr.responseJSON) {
                     var errors = xhr.responseJSON.errors;
 
@@ -248,32 +251,32 @@ $(document).ready(function () {
 
 
     // Function to check input values and enable/disable the button
-    function checkInputValues() {
-        let allInputsFilled = false;
+    // function checkInputValues() {
+    //     let allInputsFilled = false;
 
-        $('input').each(function () {
-            if ($(this).val() !== '') {
-                allInputsFilled = true;
-                return false; // break out of the loop
-            }
-        });
+    //     $('input').each(function () {
+    //         if ($(this).val() !== '') {
+    //             allInputsFilled = true;
+    //             return false; // break out of the loop
+    //         }
+    //     });
 
-        if (allInputsFilled) {
-            $('#saveBtn').attr('disabled', true);
-            $('#saveBtn').attr('disabled', false);
-        } else {
-            $('#saveBtn').attr('disabled', true);
-            $('#saveBtn').attr('disabled', false);
-        }
-    }
+    //     if (allInputsFilled) {
+    //         $('#saveBtn').attr('disabled', true);
+    //         $('#saveBtn').attr('disabled', false);
+    //     } else {
+    //         $('#saveBtn').attr('disabled', true);
+    //         $('#saveBtn').attr('disabled', false);
+    //     }
+    // }
 
-    // Check input values on page load
-    checkInputValues();
+    // // Check input values on page load
+    // checkInputValues();
 
-    // Check input values on input change
-    $('input').on('input', function () {
-        checkInputValues();
-    });
+    // // Check input values on input change
+    // $('input').on('input', function () {
+    //     checkInputValues();
+    // });
     // Function to check input values and enable/disable the button
 
 
