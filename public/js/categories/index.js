@@ -1,10 +1,12 @@
 $(document).ready(function () {
 
+    //header need csrf token laravel
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
         },
     });
+    // end header need csrf token laravel
 
 
 
@@ -83,6 +85,7 @@ $(document).ready(function () {
             }
         });
     });
+    // end add new category
 
     //edit button code 
     // Event delegation
@@ -118,19 +121,12 @@ $(document).ready(function () {
             }
         });
     });
-
-    $(document).on('click', '#addCategorie', function () {
-        $('#modal-title').html('Create Category');
-        $('#saveBtn').html('Save Category');
-    });
-
-    function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-
-    }
+    // end edit  button code
 
 
-    //delete funct
+
+
+    //delete function
     $(document).on('click', '.deleteCategory', function () {
         var id = $(this).data('id');
         $.ajax({
@@ -150,10 +146,9 @@ $(document).ready(function () {
         });
 
     });
+    //delete  end function
 
-    $("#closeBtn").click(function () {
-        table.draw();
-    });
+
 
 
     //view functinality
@@ -185,8 +180,9 @@ $(document).ready(function () {
             }
         });
     });
+    //view  end functinality
 
-
+    //next button clicked time show trashed datas
     $(document).on('click', '#nextBtn', function () {
         $.ajax({
             url: '/categories/next_page',
@@ -208,6 +204,26 @@ $(document).ready(function () {
             }
         });
     })
+
+    //end next button clicked time show trashed datas
+
+
+
+
+    //additinal 
+    $(document).on('click', '#addCategorie', function () {
+        $('#modal-title').html('Create Category');
+        $('#saveBtn').html('Save Category');
+    });
+
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+
+    }
+
+    $("#closeBtn").click(function () {
+        table.draw();
+    });
 
 
 });

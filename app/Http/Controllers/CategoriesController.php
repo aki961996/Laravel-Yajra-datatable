@@ -125,7 +125,6 @@ class CategoriesController extends Controller
             'html' => $html
 
 
-
         ], 201);
     }
 }
