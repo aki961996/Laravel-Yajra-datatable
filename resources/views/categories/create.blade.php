@@ -12,6 +12,7 @@
 
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="{{asset('css/index.css')}}" rel="stylesheet">
 
     {{--
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -27,29 +28,34 @@
     @include('categories/viewModal/viewModal')
     {{-- model end --}}
 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-3" style="margin-top: 100px">
+                <div class="card-wrap">
+                    <a href="javascript:void(0)" class="btn btn-dark mb-3" data-bs-toggle="modal"
+                        data-bs-target="#categoriesModalAdd" id="addCategorie">Add
+                        Categories</a>
+                    <div class="comman-table table-responsive">
+                        <table class="table table-bordered data-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data will be populated by DataTables via AJAX -->
+                            </tbody>
+                        </table>
+                    </div>
 
-    <div class="row">
-        <div class="col-md-6 offset-3" style="margin-top: 100px">
-            <a href="javascript:void(0)" class="btn btn-dark mb-3" data-bs-toggle="modal"
-                data-bs-target="#categoriesModalAdd" id="addCategorie">Add
-                Categories</a>
+                </div>
+            </div>
 
-            <table class="table table-bordered data-table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Data will be populated by DataTables via AJAX -->
-                </tbody>
-            </table>
+
         </div>
-
-
     </div>
 
     {{-- scripts --}}

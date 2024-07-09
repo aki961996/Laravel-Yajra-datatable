@@ -12,6 +12,7 @@ class CategoriesController extends Controller
 
     public function index(Request $request)
     {
+
         // $category = Category::all();
 
         // if ($request->ajax()) {

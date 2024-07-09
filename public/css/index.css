@@ -1,0 +1,26 @@
+body {
+    background-color: #283440;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+
+
+}
+
+.card-wrap {
+    margin-top: 100px;
+    background: #fff;
+    border-radius: 5px;
+    padding: 15px;
+}
+/* 
+.comman-table table {
+    margin: 10px 0 0;
+    border: solid 1px #ddd;
+
+}
+
+.comman-table table tr td:last-child {
+    border-right: solid 1px #ddd;
+} */
