@@ -6,6 +6,11 @@
 </head>
 
 <body>
+    @if (session('success'))
+    <div style="color: green;">
+        {{ session('success') }}
+    </div>
+    @endif
     <h1>Fetched json Data</h1>
     @if(!empty($jsonData))
     <ul>

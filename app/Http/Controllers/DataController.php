@@ -34,7 +34,7 @@ class DataController extends Controller
 
         Storage::disk('local')->put('data.json', json_encode($jsonData));
 
-        return redirect()->route('data.view');
+        return redirect()->route('data.view')->with('success', 'Data inserted success and fetch data in this page');
     }
 
     public function viewData()
