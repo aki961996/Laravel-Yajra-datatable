@@ -2,26 +2,33 @@ function validateForm() {
     const name = document.getElementById('name').value;
     const image = document.getElementById('image').files[0];
     let valid = true;
-    let errorMessage = '';
 
+    // Clear previous error messages
+    document.getElementById('nameError').classList.add('d-none');
+    document.getElementById('imageError').classList.add('d-none');
+    document.getElementById('nameError').textContent = '';
+    document.getElementById('imageError').textContent = '';
+
+    // Validate name
     if (name.trim() === '') {
-        errorMessage += 'Name is required.\n';
+        document.getElementById('nameError').textContent = 'Name is required.';
+        document.getElementById('nameError').classList.remove('d-none');
         valid = false;
     }
 
+    // Validate image
     if (!image) {
-        errorMessage += 'Image is required.\n';
+        document.getElementById('imageError').textContent = 'Image is required.';
+        document.getElementById('imageError').classList.remove('d-none');
         valid = false;
     } else if (!['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg+xml'].includes(image.type)) {
-        errorMessage += 'Invalid image type. Only JPEG, PNG, JPG, GIF, and SVG are allowed.\n';
+        document.getElementById('imageError').textContent = 'Invalid image type. Only JPEG, PNG, JPG, GIF, and SVG are allowed.';
+        document.getElementById('imageError').classList.remove('d-none');
         valid = false;
     } else if (image.size > 2048 * 1024) {
-        errorMessage += 'Image size should not exceed 2MB.\n';
+        document.getElementById('imageError').textContent = 'Image size should not exceed 2MB.';
+        document.getElementById('imageError').classList.remove('d-none');
         valid = false;
-    }
-
-    if (!valid) {
-        alert(errorMessage);
     }
 
     return valid;

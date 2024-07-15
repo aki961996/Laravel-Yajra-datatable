@@ -24,43 +24,37 @@
 </head>
 
 <body>
-
-
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-3" style="margin-top: 100px">
-                <div class="card-wrap">
+        @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+        @endif
 
-                    <form action="{{route('data.store')}}" method="POST" enctype="multipart/form-data"
-                        onsubmit="return validateForm()">
-                        @csrf
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name"><br><br>
-
-                        <label for="image">Image:</label>
-                        <input type="file" id="image" name="image"><br><br>
-
-                        <button type="submit">Submit</button>
-                    </form>
-                </div>
+        <form action="{{ route('data.store') }}" method="POST" enctype="multipart/form-data"
+            onsubmit="return validateForm()">
+            @csrf
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="Name">
+                <div id="nameError" class="text-danger d-none error-message"></div>
             </div>
 
+            <div class="mb-3">
+                <label for="image" class="form-label">Image:</label>
+                <input type="file" id="image" name="image" class="form-control">
+                <div id="imageError" class="text-danger d-none error-message"></div>
+            </div>
 
-        </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+    
     </div>
 
-
-
-
-    {{-- scripts --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-
-
-
-    {{-- <script src="{{asset('js/categories/index.js')}}"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
 </body>
 
 </html>
