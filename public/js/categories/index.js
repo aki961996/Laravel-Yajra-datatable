@@ -246,8 +246,8 @@ $(document).ready(function () {
 
 
 
-    $(document).on('click', '.closeBtn_view', function () {
-    });
+    // $(document).on('click', '.closeBtn_view', function () {
+    // });
 
 
     // Function to check input values and enable/disable the button
@@ -278,6 +278,15 @@ $(document).ready(function () {
     //     checkInputValues();
     // });
     // Function to check input values and enable/disable the button
+
+   
+    $('#categoriesAdd input, #categoriesAdd select').on('input change', function () {
+        var errorMessage = $(this).siblings('.error-messages');
+        // Hide the error message if it's visible
+        if (errorMessage.is(':visible')) {
+            errorMessage.hide();
+        }
+    });
 
 
 

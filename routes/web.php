@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\DataController;
 use App\Http\Controllers\LearningController;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +32,12 @@ Route::prefix('categories')->group(function () {
 
     //learn
     Route::get('/next_page', [CategoriesController::class, 'next_page'])->name('categories.next_page');
+});
+
+Route::prefix('admin')->group(function () {
+    Route::controller(DataController::class)->group(function () {
+        Route::get('/data', 'index')->name('data.index');
+        Route::post('/data/create', 'store')->name('data.store');
+        Route::get('/view-data',  'viewData')->name('data.view');
+    });
 });
